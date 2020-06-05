@@ -1,14 +1,19 @@
 package com.company;
 
-import java.time.LocalDate;
+
 import java.time.LocalTime;
+
 import java.util.*;
+
+
+import java.time.LocalDate;
+
+
+
 
 public class Citas {
 
-    private Scanner sc = new Scanner(System.in);
-
-    private String[] nombre = new String[11];
+    private Scanner sc = new Scanner(System.in);private String[] nombre = new String[11];
 
     private String negativo = "N";
 
@@ -35,132 +40,75 @@ public class Citas {
                 System.out.println("Ingrese su formato con una - entre los datos");
             }
         }return fecha;
-
     }
     public static LocalTime pedirHora(){
-        System.out.println("Introdusca la hora a la que asistira a la cita en formato de 24 horas (hh:mm).");
-        Scanner sc = new Scanner(System.in);
-        String ingresarHora;
-        LocalTime hora = null;
-        boolean salir = false;
-        while(!salir){
+        System.out.println("Introdusca la hora (hh:mm).");Scanner sc = new Scanner(System.in);
+        String ingresarHora;LocalTime hora = null;
+        boolean salir = false;while(!salir){
             try{
-                ingresarHora = sc.nextLine();
-                hora = LocalTime.parse(ingresarHora);
-                salir = true;
+                ingresarHora = sc.nextLine();hora = LocalTime.parse(ingresarHora);salir = true;
             }catch(Exception ex){
-                System.out.println("El formato de la hora ingresada es incorrecto, porfavor ingrese una hora valida");
-            }
-        }
-
-        return hora;
+                System.out.println("porfavor ingrese una hora valida"); } }return hora;
     }
 
     public void agendandoCita()
     {
         cont++;
-        if (cont > 9) {
-            System.out.println("Ya no hay cupo para mas citas");
-
+        if (cont > 9) { System.out.println("Ya no tenemos cupos disponible , lo sentimos");
         }else {
-            estado[cont] = "Activa";
-            fechas[cont] = pedirFecha();
-            horas[cont] = pedirHora();
-            System.out.println("Ingrese el nombre del cliente");
-            nombre[cont] = sc.next();
-            System.out.println("Ingrese el nombre de la mascota del cliente");
-            nombreMascota[cont] = sc.next();
-        }
-        System.out.println("Cita agendada para " + fechas[cont] +" a las "+horas[cont]);
-        System.out.println("Su numero de cita es: " + cont);
+            estado[cont] = "Cita Activa";
+            horas[cont] = pedirHora();fechas[cont] = pedirFecha();
+            System.out.println("escriba el nombre del cliente");nombre[cont] = sc.next();
+            System.out.println("cual es nombre de la mascota?");nombreMascota[cont] = sc.next(); }
+        System.out.println("la hora de la cita es "+horas[cont] +" en la fecha " + fechas[cont]);
+        System.out.println("el numero de cita correspondiente es: " + cont);
     }
-
     public void asignandoreagendarCita()
-    {
-        Scanner sc = new Scanner(System.in);
-        System.out.println("Por favor introduzca el numero de cita");
-        int numCita = sc.nextInt();
-        System.out.println("La cita escogida presenta los siguientes datos:");
-        System.out.println("Fecha: "+ fechas[numCita]);
-        System.out.println("Hora: "+ horas[numCita]);
-        System.out.println("Nombre cliente: "+nombre[numCita]);
-        System.out.println("Nombre mascota: "+nombreMascota[numCita]);
-
-        System.out.println("¿Desea reagendar esta cita?(S/N)");
+    { Scanner sc = new Scanner(System.in);
+        System.out.println("cual es el numero de cita");int numCita = sc.nextInt();
+        System.out.println("su cita corresponde a :");System.out.println("Nombre cliente: "+nombre[numCita]);
+        System.out.println("Nombre mascota: "+nombreMascota[numCita]);System.out.println("Fecha: "+ fechas[numCita]);
+        System.out.println("Hora: "+ horas[numCita]); System.out.println("Quiere volver a agendar su cita?(S/N)");
         int x = 0;
         while(x == 0){
             String confirmacion = sc.next();
             if(confirmacion.equals(positivo)){
-                fechas[numCita] = pedirFecha();
-                horas[numCita] = pedirHora();
-                System.out.println("----------------------------------");
-                System.out.println("Su cita se ha reagendado");
-                System.out.println("----------------------------------");
+                fechas[numCita] = pedirFecha();horas[numCita] = pedirHora();
+                System.out.println("Su cita se ha reagendado con exito muchas gracias");
                 x = 1;
-            }else{
-                if (confirmacion.equals(negativo)){
-                    System.out.println("----------------------------------");
-                    System.out.println("Su cita no sera reagendada");
-                    System.out.println("----------------------------------");
-                    x = 1;
-                }else{
-                    System.out.println("Ingrese un valor valido");
-                }
-            }
+            }else{ if (confirmacion.equals(negativo)){
+                System.out.println("Error Su cita actual no puede ser reagendada");
+                x = 1; }else{ System.out.println("Ingrese un valor que sea valido");
+                } }
         }
-
     }
     public void cancelarCita()
-    {
-        Scanner sc = new Scanner(System.in);
-        System.out.println("Por favor introduzca el numero de cita que desea cancelar");
-        int numCita = sc.nextInt();
-        System.out.println("La cita escogida presenta los siguientes datos:");
-        System.out.println("Fecha: "+ fechas[numCita]);
-        System.out.println("Hora: "+ horas[numCita]);
-        System.out.println("Nombre cliente: "+nombre[numCita]);
-        System.out.println("Nombre mascota: "+nombreMascota[numCita]);
-        System.out.println("¿Desea cancelar esta cita?(S/N)");
+    { Scanner sc = new Scanner(System.in);System.out.println("introduzca el numero de cita para cancelarlo");
+    int numCita = sc.nextInt();
+        System.out.println("la cita seleccionada es :");
+        System.out.println("Nombre cliente: "+nombre[numCita]);System.out.println("Nombre mascota: "+nombreMascota[numCita]);
+        System.out.println("Fecha: "+ fechas[numCita]);System.out.println("Hora: "+ horas[numCita]);System.out.println("¿Desea anular totalmente esta cita?(S/N)");
         int x = 0;
         while (x == 0){
             String confirmacion = sc.next();
             if (confirmacion.equals(positivo)){
-                estado[numCita] = "Cancelado";
-                System.out.println("----------------------------------");
-                System.out.println("Su cita ha sido cancelada.");
-                System.out.println("----------------------------------");
+                estado[numCita] = "Cancelado"; System.out.println("la cita se cancelo");
                 x = 1;
             }else{
-                if (confirmacion.equals(negativo))
-                {
-                    System.out.println("----------------------------------");
-                    System.out.println("Su cita no sera cancelada");
-                    System.out.println("----------------------------------");
-                    x = 1;
-                } else{
-                    System.out.println("Ingrese un valor valido");
+                if (confirmacion.equals(negativo)) { System.out.println("Su cita no sera cancelada");
+                x = 1; } else{ System.out.println("Ingrese un valor que sea valido");
                 }
             }
         }
-
     }
-
     public void mostrarCitas()
     {
         if (cont == 0){
-            System.out.println("No se ha agendado ninguna cita");
-            System.out.println("");
+            System.out.println("No se a podido agendar unacita");
         }else {
-            for (int i = 1; i < (cont + 1); i++) {
-                System.out.println("____________________________________________");
-                System.out.println("Cita numero " + i);
-                System.out.println("Fecha: " + fechas[i]);
-                System.out.println("Hora: " + horas[i]);
-                System.out.println("Nombre del cliente: " + nombre[i]);
-                System.out.println("Nombre de la mascota: " + nombreMascota[i]);
-                System.out.println("Estado de la cita: " + estado[i]);
-                System.out.println("____________________________________________");
-                System.out.println("");
+            for (int i = 1; i < (cont + 1); i++) { System.out.println("Cita No " + i);System.out.println("Estado: " + estado[i]);
+                System.out.println("cliente: " + nombre[i]);System.out.println("mascota: " + nombreMascota[i]);
+                System.out.println("Fecha: " + fechas[i]);System.out.println("Hora: " + horas[i]);
             }
         }
     }
